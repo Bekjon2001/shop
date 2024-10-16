@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
 from django.utils.translation import activate, get_language
 
+from apps.products.models import Product
 from apps.wishlist.models import Wishlist
 from config import settings
 
@@ -22,11 +23,18 @@ def cart(request):
 def set_language(request, lang):
     if not lang in settings.MODELTRANSLATION_LANGUAGES:
         lang = settings.LANGUAGE_CODE
-    old_lang = get_language()
     activate(lang)
     host= request.build_absolute_uri('/')
     redirect_to=host + lang + request.META['HTTP_REFERER'].replace(host, '')[2:]
     return redirect(redirect_to)
+
+
+def set_currency(request, currency: str):
+    currencies = Product.Currency.values
+    print(currency)
+    if currency in currencies:
+        request.session['currency'] = currency
+    return redirect(request.META['HTTP_REFERER'])
 
 def search(request):
     search_text = request.GET.get('search','')

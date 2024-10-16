@@ -8,8 +8,13 @@ from django.conf.urls.i18n import i18n_patterns
 from apps.contact.views import contact
 from apps.categories.views import category
 from apps.general.views import (
-    set_language, home,
-    checkout, cart, search)
+    set_language,
+    home,
+    checkout,
+    cart,
+    search,
+    set_currency
+)
 
 urlpatterns = [
     # =========== CKEDITOR URLS  ============
@@ -20,6 +25,9 @@ urlpatterns = [
 
     # =======SET LANGUAGE URLS =======
     path('set-language/<str:lang>/', set_language, name='set-lang'),
+
+    # =======SET CURRENCY URLS =======
+    path('set-currency/<str:currency>/', set_currency, name='set-curr'),
 
 ]
 urlpatterns += i18n_patterns(
@@ -34,6 +42,9 @@ urlpatterns += i18n_patterns(
 
     # ============= CONTACT URLS =============
     path('contact/', contact, name='contact-page'),
+
+    # ============= COMMENTS URLS =============
+    path('comments/', include('apps.comments.urls', namespace='comments' )),
 
     # ============= CATEGORIES URLS =============
     path('category/', category, name='category'),

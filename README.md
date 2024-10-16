@@ -40,21 +40,18 @@ pip install -r requirements.txt
 ```
 # Available APIs
 
-1.**API DOC (Swagger)**
-   [http://127.0.0.1:8000](http://127.0.0.1:8000)
-
-2.**Login API**
+1.**Login API**
    [http://127.0.0.1:8000/en/auth/login_page/](http://127.0.0.1:8000/en/auth/login_page/)
 
-3.**Register API**
+2.**Register API**
    [http://127.0.0.1:8000/en/auth/register_page/](http://127.0.0.1:8000/en/auth/register_page/)
 
-4.**Shop page**
+3.**Shop page**
    [http://127.0.0.1:8000/en/products/](http://127.0.0.1:8000/en/products/)
 
-5**Contact page**
+4**Contact page**
    [http://127.0.0.1:8000/en/contact/](http://127.0.0.1:8000/en/contact/)
 
-6.**About page**
+5.**About page**
    [http://127.0.0.1:8000/en/about/(http://127.0.0.1:8000/en/about/)
 

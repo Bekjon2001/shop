@@ -15,7 +15,6 @@ def delete_related_files(instance, sender, **kwargs):
             if file and os.path.exists(file.name):
                 os.remove(file.path)
 
-
 def delete_previous_files(instance, sender, **kwargs):
     if not instance.pk:
         return

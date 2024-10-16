@@ -64,28 +64,31 @@
                             <a href="{% url 'register-page' %}">
                                 <button class="dropdown-item" type="button">{% translate 'Sign up' %}</button>
                             </a>
-                            
+
                         {% endif %}
 
                     </div>
                 </div>
                 <div class="btn-group mx-2">
-                    <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">USD
+                    <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">{{ currency }}
                     </button>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <button class="dropdown-item" type="button">EUR</button>
-                        <button class="dropdown-item" type="button">GBP</button>
-                        <button class="dropdown-item" type="button">CAD</button>
+                        {% for curr in currency_list %}
+                            {% if curr != currency %}
+                                <a href="{% url 'set-curr' curr %}"><button class="dropdown-item" type="submit">{{ curr }}</button></a>
+                            {% endif %}
+                        {% endfor %}
+
                     </div>
                 </div>
                 <div class="btn-group">
                     <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">{{ current_language.upper  }}
-                    </button> 
+                    </button>
                     <div class="dropdown-menu dropdown-menu-right">
                         {% for available_language in available_languages %}
                             {% if available_language.0 != current_language%}
                             	 <a style="color: inherit " href="{% url 'set-lang' lang=available_language.0 %}"><button class="dropdown-item" type="button">{{ available_language.0.upper }}</button></a>
-                            {% endif %} 
+                            {% endif %}
                         {% endfor %}
                     </div>
                 </div>
@@ -229,8 +232,6 @@
                         <a class="text-secondary mb-2" href="{% url 'home-page' %}"><i
                                 class="fa fa-angle-right mr-2"></i>Home</a>
                         <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Our Shop</a>
-                        <a class="text-secondary mb-2" href="{% url 'products:detail-page' %}"><i
-                                class="fa fa-angle-right mr-2"></i>Shop Detail</a>
                         <a class="text-secondary mb-2" href="{% url 'cart-page' %}"><i
                                 class="fa fa-angle-right mr-2"></i>Shopping Cart</a>
                         <a class="text-secondary mb-2" href="{% url 'checkout-page' %}"><i
