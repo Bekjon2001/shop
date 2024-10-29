@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'apps.comments',
     'apps.ratings',
     'apps.wishlist',
+    'apps.carts',
+    'apps.features',
 
 
     # This place for debug-toolbar
@@ -101,9 +103,10 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+# STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 STATICFILES_DIRS = [
+    BASE_DIR / 'staticfiles',
     BASE_DIR / 'static',
 ]
 

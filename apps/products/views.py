@@ -1,15 +1,14 @@
 from django.core.handlers.wsgi import WSGIRequest
-from django.core.paginator import Paginator
 from django.http import HttpResponse
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 
 from apps.comments.models import ProductComment
-from apps.products.models import Product
+from apps.products.models import Product,ProductFeatures
 from apps.wishlist.models import Wishlist
-
 
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, render
+
 
 def product_detail(request, pk):
     product = get_object_or_404(Product, pk=pk)
@@ -18,14 +17,22 @@ def product_detail(request, pk):
     paginator = Paginator(comments, 3)
     comment_page = request.GET.get('comment_page', 1)
     comment_page_obj = paginator.get_page(comment_page)
+    product_features = ProductFeatures.objects.filter(product_id=pk)
 
     context = {
         'product': product,
         'comments': comments,
         'comment_page_obj': comment_page_obj,
+        'product_features': product_features,
         'page': 'detail'
     }
     return render(request=request, template_name='detail.html', context=context)
+
+
+def product_by_feature(request, pk):
+    print(request.POST)
+    return redirect('products:detail-page', pk=pk)
+
 
 def product_list(request: WSGIRequest) -> HttpResponse:
     user = request.user

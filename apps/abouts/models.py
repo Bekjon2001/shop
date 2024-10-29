@@ -13,3 +13,12 @@ class About(models.Model):
     def clean(self):
         if not self.pk and About.objects.exists():
             raise ValidationError("About object is already created !")
+
+# apps.py
+from django.apps import AppConfig
+
+class MyAppConfig(AppConfig):
+    name = 'myapp'
+
+    def ready(self):
+        import myapp.signals  # Signals modulini import qilish

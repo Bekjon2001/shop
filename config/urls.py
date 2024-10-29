@@ -13,7 +13,8 @@ from apps.general.views import (
     checkout,
     cart,
     search,
-    set_currency
+    set_currency,
+    flush_session
 )
 
 urlpatterns = [
@@ -37,8 +38,11 @@ urlpatterns += i18n_patterns(
     # ======= General URLS =======
 
     path('checkout/', checkout, name='checkout-page'),
-    path('cart/', cart, name='cart-page'),
     path('search/', search, name='search'),
+    path('flush/', flush_session,name='flush'),
+
+    #========== CART URLS ==============
+    path('cart/', include('apps.carts.urls',namespace='carts')),
 
     # ============= CONTACT URLS =============
     path('contact/', contact, name='contact-page'),

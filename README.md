@@ -2,7 +2,7 @@
 
 ## 1. Clone the Repository
 ```bash
-git clone https://github.com/jahongiranorboyev/online_shopping.git
+git clone https://github.com/Bekjon2001/shop.git
 ```
 ## 2. Change Directory
 ```bash
@@ -10,7 +10,7 @@ cd online_shoping
 ```
 ## 3. Create .env file using .env.example
 ```bash
-mv .env.example .env
+cp .env.example .env
 ```
 ## 4. Create a virtual environment using Python 3.10 
 ```bash

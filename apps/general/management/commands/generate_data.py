@@ -11,6 +11,7 @@ from faker.generator import random
 from apps.abouts.models import About
 from apps.categories.models import Category
 from apps.general.service import random_image_download
+from apps.general.models import General
 from apps.products.models import Product
 
 fake = Faker()
@@ -38,19 +39,21 @@ class Command(BaseCommand):
         image_dir = os.path.join(settings.MEDIA_ROOT, django_filename)
 
         for cat_i in range(10):
-            category=Category.objects.create(
-                name=fake.first_name()  ,
-            )
+            print(cat_i)
+            category = Category.objects.create(name=fake.first_name(),)
+            if cat_i % 2:
+                for i in range(3):
+                    Category.objects.create(name=fake.first_name(),)
             image_name = random_image_download(image_dir)
 
             products=[]
-            for pro_i in range(100):
+            for pro_i in range(10):
                products.append(
                    Product(
                        title=fake.text(155),
                        price=random.randint(5, 500),
                        old_price=random.randint(500, 1000),
-                       currency=random.choice(Product.Currency.choices)[0],
+                       currency=random.choice(General.Currency.choices)[0],
                        short_description=fake.text(255),
                        long_description=fake.text(10_000),
                        category_id=category.pk,
@@ -62,8 +65,8 @@ class Command(BaseCommand):
 
     @transaction.atomic
     def handle(self, *args, **options):
-        print(self.stdout.write(self.style.SUCCESS('Successfully generated products data')))
-        self.generate_products()
+        print(self.stdout.write(self.style.SUCCESS('Successfully generated about data')))
+        self.generate_about()
         print(self.stdout.write(self.style.SUCCESS('Done')))
 
         # ====================== generate product model ======================

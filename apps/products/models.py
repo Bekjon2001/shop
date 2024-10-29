@@ -1,20 +1,15 @@
 from decimal import Decimal
 
+from django.core.validators import MinValueValidator
 from django.db import models
 
 from apps.categories.models import Category
 from apps.comments.models import ProductComment
+from apps.general.models import General
 from apps.ratings.models import ProductRating
 
 
 class Product(models.Model):
-    class Currency(models.TextChoices):
-        USD = 'USD', 'USD'
-        EUR = 'EUR', 'EUR'
-        SUM = 'UZS', 'UZS'
-
-    DEFAULT_CURRENCY = Currency.USD
-
     title = models.CharField(max_length=155)
     avg_rating = models.DecimalField(
         max_digits=10,
@@ -31,12 +26,12 @@ class Product(models.Model):
     price = models.DecimalField(
         max_digits=8,
         decimal_places=2,
-        default=Decimal('0')
+        editable=False,
     )
-    old_price = models.DecimalField(max_digits=8, decimal_places=2, default=Decimal('0'))
+    old_price = models.DecimalField(max_digits=8, decimal_places=2, editable=False, )
     currency = models.CharField(
-        choices=Currency.choices,
-        default=Currency.USD,
+        choices=General.Currency.choices,
+        default=General.DEFAULT_CURRENCY,
         max_length=5
     )
     short_description = models.CharField(max_length=255)
@@ -64,6 +59,29 @@ class Product(models.Model):
 
 
 class ProductImage(models.Model):
-    product = models.ForeignKey('products.Product', on_delete=models.CASCADE)
+    product = models.ForeignKey('products.Product', on_delete=models.CASCADE, related_name='images')
     image = models.ImageField(upload_to='product/images/%Y/%m/%d/')
     ordering_number = models.PositiveSmallIntegerField(default=0)
+
+
+class ProductFeatures(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    feature_value = models.ManyToManyField('features.FeatureValue', )
+    price = models.DecimalField(
+        max_digits=8,
+        decimal_places=2,
+        validators=[MinValueValidator(0)],
+        help_text='Enter in UZS'
+    )
+    old_price = models.DecimalField(
+        max_digits=8,
+        decimal_places=2,
+        validators=[MinValueValidator(0)],
+        help_text='Enter in UZS'
+    )
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        self.product.price, self.product.iod_price, = self.price, self.old_price
+        self.product.save()
