@@ -14,15 +14,6 @@
                         <h5 class="section-about-title pe-3">About Us</h5>
                         <h1 class="mb-4">Welcome to <span class="text-primary">{{ about.title }}</span></h1>
                         <p class="mb-4">{{ about.description|safe  }}</p>
-
-                        <div class="row gy-2 gx-4 mb-4">
-{#                        {% for foo in social_media %}#}
-                            <div class="col-sm-6">
-                                <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>{{ foo.text }}</p>
-                            </div>
-{#                        {% endfor %}#}
-                        </div>
-
                         <a class="btn btn-primary rounded-pill py-3 px-5 mt-2" href="">Read More</a>
                     </div>
                 </div>
@@ -30,7 +21,7 @@
         </div>
         <!-- About End -->
     <!-- Sellers Start -->
-    {% include 'includes/sellers.html' %}
+<!--    {% include 'includes/sellers.html' %}-->
     <!-- Sellers Start -->
     
 {% endblock content %}

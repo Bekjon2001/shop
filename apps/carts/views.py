@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.core.handlers.wsgi import WSGIRequest
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 from apps.carts.models import Cart
 
@@ -28,3 +28,15 @@ def delete_cart(request: WSGIRequest, product_id: int) -> None:
     if product_id:
         Cart.objects.filter(product_id=product_id).delete()
     return redirect('carts:cart')
+
+
+def set_cart_quantity(request, cart_id):
+    if request.method != 'POST':
+        return redirect('home-pege')
+    cart_obj = get_object_or_404(Cart, pk=cart_id)
+    quantity = request.POST.get('item_quantity', cart_obj.quantity)
+    if  quantity.isdigit() and int(quantity) <= 0:
+        quantity = 0
+    cart_obj.quantity = quantity
+    cart_obj.save()
+    return redirect(request.META['HTTP_REFERER'])
