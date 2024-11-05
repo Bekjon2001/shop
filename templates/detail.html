@@ -165,6 +165,15 @@
                                                 <label for="email">Your Email *</label>
                                                 <input type="email" name="email" class="form-control" id="email">
                                             </div>
+                                        {% else %}
+                                            <div class="form-group">
+                                                <label for="name">Your Name *</label>
+                                                <input type="hidden" name="name" class="form-control" value="{{ user.name }}" >
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="email">Your Email *</label>
+                                                <input type="hidden" name="email" class="form-control" value="{{ user.email }}">
+                                            </div>
                                         {% endif %}
                                         <div class="form-group mb-0">
                                             <input type="submit" value="Leave Your Review" class="btn btn-primary px-3">

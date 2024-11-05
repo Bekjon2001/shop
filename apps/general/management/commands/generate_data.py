@@ -38,7 +38,7 @@ class Command(BaseCommand):
         django_filename = f'products/images/{today.year}/{today.month}/{today.day}/'
         image_dir = os.path.join(settings.MEDIA_ROOT, django_filename)
 
-        for cat_i in range(10):
+        for cat_i in range(8):
             print(cat_i)
             category = Category.objects.create(name=fake.first_name(),)
             if cat_i % 2:

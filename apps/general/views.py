@@ -1,14 +1,25 @@
 from django.shortcuts import redirect, render
 from django.utils.translation import activate, get_language
 
+from config import settings
+from django.core.paginator import Paginator
+
 from apps.general.models import General
 from apps.wishlist.models import Wishlist
-from config import settings
+from apps.products.models import Product
+
 
 
 def home(request):
+    queryset = Product.objects.all().order_by('-pk')  # Mahsulotlarni so'nggi qo'shilgan tartibda olish
+
+    # Sahifalash
+    page_number = request.GET.get('page', 1)  # URL parametridan sahifa raqamini olish
+    paginator = Paginator(queryset, 8)  # 8 ta mahsulotni har sahifada ko'rsatish
+    page_obj = paginator.get_page(page_number)
     context = {
         'wishlist': Wishlist.objects.all(),
+        'page_obj': page_obj,
         'page': 'home',
     }
     return render(request, template_name='index.html', context=context)
