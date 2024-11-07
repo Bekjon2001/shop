@@ -46,7 +46,7 @@
                 <div class="btn-group">
                     <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">
                         {% if user.is_authenticated %}
-                            {{ user.username }}
+                            {{ user.first_name }}
                         {% else %}
                             Login
                         {% endif %}

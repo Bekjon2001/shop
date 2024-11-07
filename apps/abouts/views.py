@@ -11,7 +11,7 @@ def about(request):
 
     if not request.user.is_superuser and perm not in user_permissions:
         return render(request, '403.html', {'message': 'Sizning ushbu sahifaga kirish huquqingiz yo\'q.'})
- 
+
     context = {
         'about': About.objects.first(),
         'page': 'about'

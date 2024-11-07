@@ -56,7 +56,7 @@ class CustomUser(models.Model):
     objects = CustomUserManager()
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['first_name']
 
     user_permissions = models.ManyToManyField(Permission,blank=True,)
 
