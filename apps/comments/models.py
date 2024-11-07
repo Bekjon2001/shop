@@ -1,6 +1,6 @@
-from django.contrib.auth.models import User
+from django.conf import settings
 from django.db import models
-from django.forms import CharField, EmailField
+
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 
@@ -9,7 +9,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 class ProductComment(models.Model):
     product = models.ForeignKey('products.Product', on_delete=models.CASCADE)
     rating = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(5)])
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True,blank=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True,blank=True)
     name = models.CharField(max_length=120)
     email = models.EmailField(max_length=120)
     message = models.CharField(max_length=250)

@@ -1,9 +1,9 @@
-from django.conf.global_settings import AUTH_USER_MODEL
+from django.conf import settings
 from django.db import models
 
 
 class Wishlist(models.Model):
-    user = models.ForeignKey(to=AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     product = models.ForeignKey(to='products.product', on_delete=models.CASCADE)
 
     class Meta:
