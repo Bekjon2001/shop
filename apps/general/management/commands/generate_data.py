@@ -26,6 +26,7 @@ class Command(BaseCommand):
             django_filename = f'abouts/images/{today.year}/{today.month}/{today.day}/'
             image_dir = os.path.join(settings.MEDIA_ROOT, django_filename)
             image_name=random_image_download(image_dir)
+
             About.objects.create(
                 title=fake.text(155),
                 description=fake.text(255),
@@ -37,20 +38,26 @@ class Command(BaseCommand):
         today = now().date()
         django_filename = f'products/images/{today.year}/{today.month}/{today.day}/'
         image_dir = os.path.join(settings.MEDIA_ROOT, django_filename)
-
-        for cat_i in range(8):
+        image_name = random_image_download(image_dir)
+        for cat_i in range(6):
             print(cat_i)
-            category = Category.objects.create(name=fake.first_name(),)
+            category = Category.objects.create(
+                name=fake.first_name(),
+                category_images=os.path.join(django_filename, image_name),
+            )
             if cat_i % 2:
                 for i in range(3):
-                    Category.objects.create(name=fake.first_name(),)
-            image_name = random_image_download(image_dir)
+                    Category.objects.create(
+                        name=fake.first_name(),
+                        parent_id=category.pk
+                    )
+
 
             products=[]
             for pro_i in range(10):
                products.append(
                    Product(
-                       title=fake.text(155),
+                       title=fake.text(50),
                        price=random.randint(5, 500),
                        old_price=random.randint(500, 1000),
                        currency=random.choice(General.Currency.choices)[0],

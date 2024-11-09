@@ -6,7 +6,7 @@ from apps.wishlist.models import Wishlist
 def general_context(request):
     context = {
         'general': General.objects.all(),
-        'categories': Category.objects.select_related('parent').filter(parent__isnull=True),
+        'categories': Category.objects.select_related('parent').filter(parent__isnull=False),
         'general_social_media': GeneralSocialMedia.objects.all(),
         'wishlist': Wishlist.objects.all(),
         'currency': request.session.get('currency', General.DEFAULT_CURRENCY),

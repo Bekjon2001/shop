@@ -1,13 +1,16 @@
 from django.contrib.auth.decorators import login_required
 from django.core.handlers.wsgi import WSGIRequest
 from django.shortcuts import render, redirect, get_object_or_404
+from django.db.models import F,Sum
 
 from apps.carts.models import Cart
 
-
+@login_required
 def cart(request: WSGIRequest):
+    quryset = Cart.objects.annotate(total_price=F('quantity') * F('product__price')).filter(user=request.user)
     context = {
-        'cart': Cart.objects.filter(user=request.user).select_related('product')
+        'cart': quryset.select_related('product'),
+        'cart_total_price':quryset.aggregate(Sum('total_price'))['total_price__sum']
     }
     return render(request=request, template_name='cart.html', context=context)
 

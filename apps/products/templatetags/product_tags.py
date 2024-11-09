@@ -22,3 +22,16 @@ def get_price_currency(to_currency:str, price: Decimal = 0)-> Decimal:
         return price
 
     return round(price /Decimal( CurrencyAmount.get_currency_amount(currency=to_currency)),2)
+
+
+
+
+@register.simple_tag
+def multiply(value1, value2):
+    print(type(value1),type(value2))
+    return round((value1 / 100) * value2, 2)
+
+
+@register.simple_tag
+def add(value1,value2):
+    return Decimal(value1) + value2

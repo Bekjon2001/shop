@@ -54,6 +54,8 @@ class Product(models.Model):
         self.comments_count = ProductComment.objects.filter(product_id=self.pk).count()
         self.save()
 
+
+
     def __str__(self):
         return self.title
 

@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 
 
 class UserRegistrationForm(forms.Form):
-    username = forms.CharField(
+    first_name = forms.CharField(
         max_length=20,
         min_length=4,
         required=True,
@@ -31,10 +31,10 @@ class UserRegistrationForm(forms.Form):
         })
     )
 
-    def clean_username(self):
-        username = self.cleaned_data['username']
-        if get_user_model().objects.filter(username=username).exists():
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if get_user_model().objects.filter(email=email).exists():
             raise forms.ValidationError('Username already exists')
-        return username
+        return email
 
 

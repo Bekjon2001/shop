@@ -11,7 +11,8 @@ class Category(models.Model):
     related_name='children',
     on_delete=models.CASCADE,
     related_query_name='category'
-                           )
+     )
+    category_images=models.ImageField(upload_to='categories/images/%Y/%m/%d/')
 
     def clean(self):
         try:

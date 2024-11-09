@@ -11,7 +11,7 @@ from apps.products.models import Product
 
 
 def home(request):
-    queryset = Product.objects.all().order_by('-pk')  # Mahsulotlarni so'nggi qo'shilgan tartibda olish
+    queryset = Product.objects.order_by('-avg_rating')  # Mahsulotlarni so'nggi qo'shilgan tartibda olish
 
     # Sahifalash
     page_number = request.GET.get('page', 1)  # URL parametridan sahifa raqamini olish

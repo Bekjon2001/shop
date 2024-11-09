@@ -44,6 +44,10 @@ urlpatterns += i18n_patterns(
     #========== CART URLS ==============
     path('cart/', include('apps.carts.urls',namespace='carts')),
 
+    #============ COUPON URLS ==========
+    path('coupons/', include('apps.coupons.urls',namespace='coupons')),
+
+
     # ============= CONTACT URLS =============
     path('contact/', contact, name='contact-page'),
 

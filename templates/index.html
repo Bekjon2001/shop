@@ -106,162 +106,24 @@
     <div class="container-fluid pt-5">
         <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Categories</span></h2>
         <div class="row px-xl-5 pb-3">
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <a class="text-decoration-none" href="">
-                    <div class="cat-item d-flex align-items-center mb-4">
-                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                            <img class="img-fluid" src="../static/img/cat-1.jpg" alt="">
+           {% for cat in categories %}
+                <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                    <a class="text-decoration-none" href="{% url 'products:product_list' %}">
+                        <div class="cat-item d-flex align-items-center mb-4">
+                            <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                                {% if cat.category_images %}
+                                {% else %}
+                                    <img class="img-fluid" src="data:image/jpeg;base64,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" alt="Default Image">
+                                {% endif %}
+                            </div>
+                            <div class="flex-fill pl-3">
+                                <h6>{{ cat.name }}</h6>
+                                <small class="text-body">{{ cat.products|length }} Products</small>
+                            </div>
                         </div>
-                        <div class="flex-fill pl-3">
-                            <h6>Category Name</h6>
-                            <small class="text-body">100 Products</small>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <a class="text-decoration-none" href="">
-                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                            <img class="img-fluid" src="../static/img/cat-2.jpg" alt="">
-                        </div>
-                        <div class="flex-fill pl-3">
-                            <h6>Category Name</h6>
-                            <small class="text-body">100 Products</small>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <a class="text-decoration-none" href="">
-                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                            <img class="img-fluid" src="../static/img/cat-3.jpg" alt="">
-                        </div>
-                        <div class="flex-fill pl-3">
-                            <h6>Category Name</h6>
-                            <small class="text-body">100 Products</small>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <a class="text-decoration-none" href="">
-                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                            <img class="img-fluid" src="../static/img/cat-4.jpg" alt="">
-                        </div>
-                        <div class="flex-fill pl-3">
-                            <h6>Category Name</h6>
-                            <small class="text-body">100 Products</small>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <a class="text-decoration-none" href="">
-                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                            <img class="img-fluid" src="../static/img/cat-4.jpg" alt="">
-                        </div>
-                        <div class="flex-fill pl-3">
-                            <h6>Category Name</h6>
-                            <small class="text-body">100 Products</small>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <a class="text-decoration-none" href="">
-                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                            <img class="img-fluid" src="../static/img/cat-3.jpg" alt="">
-                        </div>
-                        <div class="flex-fill pl-3">
-                            <h6>Category Name</h6>
-                            <small class="text-body">100 Products</small>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <a class="text-decoration-none" href="">
-                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                            <img class="img-fluid" src="../static/img/cat-2.jpg" alt="">
-                        </div>
-                        <div class="flex-fill pl-3">
-                            <h6>Category Name</h6>
-                            <small class="text-body">100 Products</small>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <a class="text-decoration-none" href="">
-                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                            <img class="img-fluid" src="../static/img/cat-1.jpg" alt="">
-                        </div>
-                        <div class="flex-fill pl-3">
-                            <h6>Category Name</h6>
-                            <small class="text-body">100 Products</small>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <a class="text-decoration-none" href="">
-                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                            <img class="img-fluid" src="../static/img/cat-2.jpg" alt="">
-                        </div>
-                        <div class="flex-fill pl-3">
-                            <h6>Category Name</h6>
-                            <small class="text-body">100 Products</small>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <a class="text-decoration-none" href="">
-                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                            <img class="img-fluid" src="../static/img/cat-1.jpg" alt="">
-                        </div>
-                        <div class="flex-fill pl-3">
-                            <h6>Category Name</h6>
-                            <small class="text-body">100 Products</small>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <a class="text-decoration-none" href="">
-                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                            <img class="img-fluid" src="../static/img/cat-4.jpg" alt="">
-                        </div>
-                        <div class="flex-fill pl-3">
-                            <h6>Category Name</h6>
-                            <small class="text-body">100 Products</small>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <a class="text-decoration-none" href="">
-                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                            <img class="img-fluid" src="../static/img/cat-3.jpg" alt="">
-                        </div>
-                        <div class="flex-fill pl-3">
-                            <h6>Category Name</h6>
-                            <small class="text-body">100 Products</small>
-                        </div>
-                    </div>
-                </a>
-            </div>
+                    </a>
+                </div>
+            {% endfor %}
         </div>
     </div>
     <!-- Categories End -->
@@ -354,222 +216,51 @@
     <div class="container-fluid pt-5 pb-3">
         <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Recent Products</span></h2>
         <div class="row px-xl-5">
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <div class="product-item bg-light mb-4">
-                    <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="../static/img/product-1.jpg" alt="">
-                        <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
+           {% if page_obj %}
+                {% for product in page_obj %}
+                    <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                        <div class="product-item bg-light mb-4">
+                            <div class="product-img position-relative overflow-hidden">
+                                <img class="img-fluid w-100" src="{{ product.main_image.url }}" alt="">
+                                <div class="product-action">
+                                    <a class="btn btn-outline-dark btn-square" href="{% url 'carts:cart_create' product_id=product.id %}"><i
+                                        class="fa fa-shopping-cart"></i></a>
+                                    <a class="btn btn-outline-dark btn-square"
+                                       href="{% url 'wishlists:wishlist_create' product_id=product.id %}">
+                                        {% if product.id in user_wishlist %}
+                                            <i class="fa fa-heart" aria-hidden="true"></i>
+                                        {% else %}
+                                            <i class="far fa-heart"></i>
+                                        {% endif %}
+
+                                    </a>
+                                    <a class="btn btn-outline-dark btn-square" href=""><i
+                                            class="fa fa-sync-alt"></i></a>
+                                    <a class="btn btn-outline-dark btn-square" href="{% url 'products:detail-page' pk=product.pk %}"><i
+                                            class="fa fa-search"></i></a>
+
+                                </div>
+                            </div>
+                            <div class="text-center py-4">
+                                <a class="h6 text-decoration-none text-truncate" href="">{{ product.title }}</a>
+                                <div class="d-flex align-items-center justify-content-center mt-2">
+                                     <h5>{% get_price_currency currency product.price %}</h5>
+                                    <h6 class="text-muted ml-2">
+                                        <del>{% get_price_currency currency product.old_price %}</del>
+                                    </h6>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-center mb-1">
+                                     {% decimal_to_range product.avg_rating as SS %}
+                                    {% for rating in SS %}
+                                        <small class="fa fa-star text-primary mr-1"></small>
+                                    {% endfor %}
+                                <small>({{ product.avg_rating|floatformat:"0" }})</small>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="text-center py-4">
-                        <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
-                        <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center mb-1">
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small>(99)</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <div class="product-item bg-light mb-4">
-                    <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="../static/img/product-2.jpg" alt="">
-                        <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center py-4">
-                        <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
-                        <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center mb-1">
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star-half-alt text-primary mr-1"></small>
-                            <small>(99)</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <div class="product-item bg-light mb-4">
-                    <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="../static/img/product-3.jpg" alt="">
-                        <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center py-4">
-                        <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
-                        <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center mb-1">
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star-half-alt text-primary mr-1"></small>
-                            <small class="far fa-star text-primary mr-1"></small>
-                            <small>(99)</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <div class="product-item bg-light mb-4">
-                    <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="../static/img/product-4.jpg" alt="">
-                        <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center py-4">
-                        <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
-                        <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center mb-1">
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="far fa-star text-primary mr-1"></small>
-                            <small class="far fa-star text-primary mr-1"></small>
-                            <small>(99)</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <div class="product-item bg-light mb-4">
-                    <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="../static/img/product-5.jpg" alt="">
-                        <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center py-4">
-                        <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
-                        <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center mb-1">
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small>(99)</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <div class="product-item bg-light mb-4">
-                    <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="../static/img/product-6.jpg" alt="">
-                        <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center py-4">
-                        <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
-                        <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center mb-1">
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star-half-alt text-primary mr-1"></small>
-                            <small>(99)</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <div class="product-item bg-light mb-4">
-                    <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="../static/img/product-7.jpg" alt="">
-                        <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center py-4">
-                        <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
-                        <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center mb-1">
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star-half-alt text-primary mr-1"></small>
-                            <small class="far fa-star text-primary mr-1"></small>
-                            <small>(99)</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <div class="product-item bg-light mb-4">
-                    <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="../static/img/product-8.jpg" alt="">
-                        <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center py-4">
-                        <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
-                        <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center mb-1">
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="far fa-star text-primary mr-1"></small>
-                            <small class="far fa-star text-primary mr-1"></small>
-                            <small>(99)</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                {% endfor %}
+            {% endif %}
         </div>
     </div>
     <!-- Products End -->
