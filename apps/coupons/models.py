@@ -7,10 +7,8 @@ class Coupon(models.Model):
     title = models.CharField(max_length=100)
     code = models.CharField(max_length=10, unique=True)
 
-    discount_percent = models.DecimalField(
-        max_digits=3,
-        decimal_places=0,
-        validators=[MinValueValidator(0),MaxValueValidator(100)]
+    discount_percent = models.PositiveSmallIntegerField(
+        validators=[MinValueValidator(1),MaxValueValidator(100)]
     )
 
 

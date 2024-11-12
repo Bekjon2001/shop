@@ -10,8 +10,6 @@ from apps.categories.views import category
 from apps.general.views import (
     set_language,
     home,
-    checkout,
-    cart,
     search,
     set_currency,
     flush_session
@@ -37,7 +35,7 @@ urlpatterns += i18n_patterns(
 
     # ======= General URLS =======
 
-    path('checkout/', checkout, name='checkout-page'),
+    path('checkout/',include('apps.orders.urls')),
     path('search/', search, name='search'),
     path('flush/', flush_session,name='flush'),
 

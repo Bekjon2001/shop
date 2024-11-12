@@ -25,9 +25,6 @@ def home(request):
     return render(request, template_name='index.html', context=context)
 
 
-def checkout(request):
-    return render(request=request, template_name='checkout.html', context={'page': 'pages'})
-
 
 def cart(request):
     return render(request=request, template_name='cart.html', context={'page': 'pages'})

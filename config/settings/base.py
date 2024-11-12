@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'apps.users',
     'apps.coupons',
     'apps.contact',
+    'apps.orders',
 
 
     # This place for debug-toolbar

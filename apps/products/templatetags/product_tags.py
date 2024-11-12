@@ -17,10 +17,10 @@ def product_in_wishlist(user_id: int, product_id: int)-> bool:
     return Wishlist.objects.filter(user_id=user_id, product_id=product_id).exists()
 
 @register.simple_tag
-def get_price_currency(to_currency:str, price: Decimal = 0)-> Decimal:
+def get_price_currency(to_currency:str, price: Decimal )-> Decimal:
     if to_currency == General.Currency.UZS:
         return price
-
+    print(price, 'aaaaaaaaaaa')
     return round(price /Decimal( CurrencyAmount.get_currency_amount(currency=to_currency)),2)
 
 
