@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.hashers import make_password, check_password
-from django.contrib.auth.models import _user_get_permissions, _user_has_perm,_user_has_module_perms
+from django.contrib.auth.models import _user_get_permissions, _user_has_perm, _user_has_module_perms
 from django.contrib.auth.models import AbstractUser
 from typing import Iterable
 
@@ -38,33 +38,35 @@ class CustomUserManager(models.Manager):
 class Permission(models.Model):
     title = models.CharField(max_length=250, unique=True)
 
-
     def __str__(self):
         return self.title
 
 
 class CustomUser(models.Model):
-
     first_name = models.CharField(max_length=150, blank=True, null=True)
     last_name = models.CharField(max_length=150, blank=True, null=True)
     email = models.EmailField(max_length=120, unique=True)
     password = models.CharField(max_length=120)
-    is_staff = models.BooleanField(default=False,)
-    is_active = models.BooleanField(default=True,)
-    is_superuser = models.BooleanField(default=False,)
+    is_staff = models.BooleanField(default=False, )
+    is_active = models.BooleanField(default=True, )
+    is_superuser = models.BooleanField(default=False, )
 
     objects = CustomUserManager()
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ['first_name']
 
-    user_permissions = models.ManyToManyField(Permission,blank=True,)
+    user_permissions = models.ManyToManyField(Permission, blank=True, )
 
+    # ==== Extra fields =====
+    phone_number = models.CharField(max_length=13, null=True, blank=True)
+    address = models.CharField(max_length=150, blank=True)
+    region = models.CharField(max_length=150, blank=True)
+    district = models.CharField(max_length=150, blank=True)
+    zip_code = models.CharField(max_length=150, blank=True)
 
     def __str__(self):
         return self.email
-
-
 
     @property
     def is_authenticated(self):
