@@ -10,6 +10,9 @@
 
     <!-- Checkout Start -->
     <div class="container-fluid">
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
         <form action="{% url 'create-order' %}" method="post">
             {% csrf_token %}
             <div class="row px-xl-5">
@@ -86,11 +89,14 @@
                     <div class="border-bottom pt-3 pb-2">
                         <div class="d-flex justify-content-between mb-3">
                             <h6>Subtotal</h6>
-                            <h6>{% get_price_currency currency total_cart %}{{ currency }}</h6>
+                            {% get_price_currency currency total_cart as total_price  %}
+                            <h6>{{total_price}}{{ currency }}</h6>
+                            <input type="hidden" value="{{ total_price }}" name="total_price" >
                         </div>
                         <div class="d-flex justify-content-between">
                             <h6 class="font-weight-medium">Shipping</h6>
                             <h6 class="font-weight-medium">{{ shipping_percent }}%</h6>
+                            <input type="hidden" value="{{ shipping_percent }}" name="delivery_price" >
                         </div>
                         <div class="d-flex justify-content-between">
                             {% if request.session.coupon_data %}

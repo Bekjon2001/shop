@@ -1,8 +1,10 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
+from django.contrib import messages
 
 from apps.carts.models import Cart
 from apps.general.models import General,PaymentMethod
+from apps.orders.forms import OrdersForm
 
 
 @login_required
@@ -33,6 +35,7 @@ def checkout(request):
     }
 
 
+
     return render(
         request=request,
         template_name='checkout.html',
@@ -40,5 +43,21 @@ def checkout(request):
     )
 
 @login_required
-def cert_order(request):
-    return redirect('home-page')
+
+def create_order(request):
+    if request.method == 'GET':
+        return redirect('home-page')
+
+    form = OrdersForm(data=request.POST)
+    if form.is_valid():
+        order = form.save(commit=False)
+        order.user = request.user
+        order.save()
+        messages.success(request, 'Your order has been created!')
+    else:
+        messages.error(request, form.errors)
+    if request.session.get('coupon_data'):
+        del request.session['coupon_data']
+    print(redirect(request.META.get('HTTP_REFERER')))
+    return redirect(request.META.get('HTTP_REFERER'))
+

@@ -6,7 +6,6 @@ from django.conf.urls.i18n import i18n_patterns
 
 
 from apps.contact.views import contact
-from apps.categories.views import category
 from apps.general.views import (
     set_language,
     home,
@@ -53,7 +52,7 @@ urlpatterns += i18n_patterns(
     path('comments/', include('apps.comments.urls', namespace='comments' )),
 
     # ============= CATEGORIES URLS =============
-    path('category/', category, name='category'),
+    path('category/', include('apps.categories.urls')),
 
     # ============= ABOUT URLS =============
     path('about/', include('apps.abouts.urls', namespace='about')),

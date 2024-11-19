@@ -19,8 +19,9 @@ def cart(request: WSGIRequest):
         'cart_total_price': quryset.aggregate(Sum('total_price'))['total_price__sum'],
         'shipping_percent': shipping_percent
     }
-    context['total_price'] = context['cart_total_price'] + context['cart_total_price'] * shipping_percent / 100 - \
-                             context['cart_total_price'] * request.session.get('coupon_data', {}).get('discount_percent', 0) / 100
+    if not context['cart_total_price'] == None:
+        context['total_price'] = context['cart_total_price'] + context['cart_total_price'] * shipping_percent / 100 - context['cart_total_price'] * request.session.get('coupon_data', {}).get('discount_percent', 0) / 100
+
 
     return render(request=request, template_name='cart.html', context=context)
 

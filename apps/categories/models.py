@@ -21,13 +21,21 @@ class Category(models.Model):
         except AttributeError:
             pass
 
-    # def category_filter(self):
-    #     if self.parent is None:
-    #         return self.name
-    #     elif self.parent.parent is not None and self.children:
-    #         return self.name
-    #     elif self.parent.parent is not None and self.children is None:
-    #         return self.name
+
+    def category_filter(self):
+        if self.parent is None:
+            return self.name
+        elif self.children.exists():
+            return self.name
+        elif self.parent.parent is not None and not self.children.exists():
+            return self.name
+        return None
+
+    def is_leaf(self):
+        # Checks if the category is a leaf node (no children)
+        return self.children.count() == 0
 
     def __str__(self):
         return self.name
+    class Meta:
+        ordering = ['name']

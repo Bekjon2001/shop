@@ -12,7 +12,7 @@ class Order(models.Model):
     is_paid = models.BooleanField(default=False)
     paid_at = models.DateTimeField(blank=True,null=True)
 
-    coupon = models.ForeignKey('coupons.Coupon',on_delete=models.PROTECT)
+    coupon = models.ForeignKey('coupons.Coupon',on_delete=models.SET_NULL, blank=True, null=True)
 
 class OrderProduct(models.Model):
     order = models.ForeignKey(Order, on_delete=models.PROTECT)

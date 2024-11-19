@@ -145,18 +145,27 @@
             <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 bg-light"
                  id="navbar-vertical" style="width: calc(100% - 30px); z-index: 999;">
                 <div class="navbar-nav w-100">
-                    {% for cat in categories %}
-                        <div class="nav-item dropdown dropright">
-                            <a  class="nav-link dropdown-toggle" data-toggle="dropdown">a{{ cat.name }}<i
-                                    class="fa fa-angle-right float-right mt-1"></i></a>
-                            <div class="dropdown-menu position-absolute rounded-0 border-0 m-0">
-                                <a href="{% url 'products:product_list' %}" class="dropdown-item">
-                                    {{ cat.parent.name }}
-                                </a>
+                    {% for category in categories %}
+                        {% if category.children.exists %}
+                            <div class="nav-item dropdown dropright ">
+                                <a href="{% url 'set-category' cat_id=category.pk %}"
+                                   class="nav-link dropdown-toggle {% if request.session.cat_id == category.pk %} active {% endif %} "
+                                   data-toggle="dropdown">{{ category.name }} <i class="fa fa-angle-right float-right mt-1 "></i></a>
+                                <div class="dropdown-menu position-absolute rounded-0 border-0 m-0">
+                                    {% for child in category.children.all %}
+                                        <a href="{% url 'set-category' cat_id=child.pk %}"
+                                           class="dropdown-item {% if request.session.cat_id == child.pk %} active {% endif %}">
+                                            {{ child.name }}
+                                        </a>
+                                    {% endfor %}
 
+                                </div>
                             </div>
-                        </div>
-                  {% endfor %}
+                        {% else %}
+                            <a href="{% url 'set-category' cat_id=category.pk %}"
+                               class="nav-item nav-link {% if request.session.cat_id == category.pk %} active {% endif %}">{{ category.name }}</a>
+                        {% endif %}
+                    {% endfor %}
                 </div>
             </nav>
         </div>

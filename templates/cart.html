@@ -88,6 +88,7 @@
                             <div class="d-flex justify-content-between">
                                 <h6 class="font-weight-medium">COUPON COD</h6>
                                 <h6 class="font-weight-medium">{{ request.session.coupon_data.discount_percent }} %</h6>
+                                <input type="hidden" name="coupon" id="{{coupon_pk}}">
                             </div>
                         {% endif %}
                     </div>

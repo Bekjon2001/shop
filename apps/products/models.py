@@ -1,4 +1,5 @@
 from decimal import Decimal
+from email.policy import default
 
 from django.core.validators import MinValueValidator
 from django.db import models
@@ -18,17 +19,18 @@ class Product(models.Model):
         editable=False
     )
     comments_count = models.DecimalField(
-        max_digits=10,
+        max_digits=20,
         decimal_places=0,
         default=Decimal('0'),
-        editable=False
-    )
-    price = models.DecimalField(
-        max_digits=8,
-        decimal_places=2,
         editable=False,
     )
-    old_price = models.DecimalField(max_digits=8, decimal_places=2, editable=False, )
+    price = models.DecimalField(
+        max_digits=20,
+        decimal_places=2,
+        editable=False,
+        default=0
+    )
+    old_price = models.DecimalField(max_digits=8, decimal_places=2, editable=False,default=0 )
     currency = models.CharField(
         choices=General.Currency.choices,
         default=General.DEFAULT_CURRENCY,
@@ -70,13 +72,13 @@ class ProductFeatures(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     feature_value = models.ManyToManyField('features.FeatureValue', )
     price = models.DecimalField(
-        max_digits=8,
+        max_digits=20,
         decimal_places=2,
         validators=[MinValueValidator(0)],
         help_text='Enter in UZS'
     )
     old_price = models.DecimalField(
-        max_digits=8,
+        max_digits=20,
         decimal_places=2,
         validators=[MinValueValidator(0)],
         help_text='Enter in UZS'
