@@ -4,69 +4,51 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf.urls.i18n import i18n_patterns
 
-
-from apps.contact.views import contact
+from apps.contact.views import ContactView
 from apps.general.views import (
-    set_language,
-    home,
-    search,
-    set_currency,
-    flush_session
+    SetLanguageView,
+    HomeView,
+    SearchView,
+    SetCurrencyView,
+    FlushSessionView
 )
 
 urlpatterns = [
-    # =========== CKEDITOR URLS  ============
+    # CKEditor URLs
     path("__ckeditor5/", include('django_ckeditor_5.urls')),
 
-    # =============MEDIA URLS===========
+    # Media URLs
     *static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
 
-    # =======SET LANGUAGE URLS =======
-    path('set-language/<str:lang>/', set_language, name='set-lang'),
+    # Set Language and Currency URLs
+    path('set-language/<str:lang>/', SetLanguageView.as_view(), name='set-lang'),
+    path('set-currency/<str:currency>/', SetCurrencyView.as_view(), name='set-curr'),
 
-    # =======SET CURRENCY URLS =======
-    path('set-currency/<str:currency>/', set_currency, name='set-curr'),
-
+    # Other static or dynamic URLs can go here
 ]
+
+# Add internationalization patterns
 urlpatterns += i18n_patterns(
-    path('', home, name='home-page'),
+    path('', HomeView.as_view(), name='home-page'),
     path('admin/', admin.site.urls),
 
-    # ======= General URLS =======
+    # General URLs
+    path('checkout/', include('apps.orders.urls')),
+    path('search/', SearchView.as_view(), name='search'),
+    path('flush/', FlushSessionView.as_view(), name='flush'),
 
-    path('checkout/',include('apps.orders.urls')),
-    path('search/', search, name='search'),
-    path('flush/', flush_session,name='flush'),
-
-    #========== CART URLS ==============
-    path('cart/', include('apps.carts.urls',namespace='carts')),
-
-    #============ COUPON URLS ==========
-    path('coupons/', include('apps.coupons.urls',namespace='coupons')),
-
-
-    # ============= CONTACT URLS =============
-    path('contact/', contact, name='contact-page'),
-
-    # ============= COMMENTS URLS =============
-    path('comments/', include('apps.comments.urls', namespace='comments' )),
-
-    # ============= CATEGORIES URLS =============
+    # Other app URL patterns
+    path('cart/', include('apps.carts.urls', namespace='carts')),
+    path('coupons/', include('apps.coupons.urls', namespace='coupons')),
+    path('contact/', ContactView.as_view(), name='contact-page'),
+    path('comments/', include('apps.comments.urls', namespace='comments')),
     path('category/', include('apps.categories.urls')),
-
-    # ============= ABOUT URLS =============
     path('about/', include('apps.abouts.urls', namespace='about')),
-
-    # ============= WISHLIST URLS =============
     path('wishlist/', include('apps.wishlist.urls', namespace='wishlists')),
-
-    # =============  PRODUCTS URLS =============
     path('products/', include('apps.products.urls', namespace='products')),
-
-    # ============= AUTH URLS  =============
     path('auth/', include('apps.authentication.urls')),
 
-    # ============= DEBUG_TOOLBAR URLs =============
+    # Debug toolbar
     path('__debug__/', include('debug_toolbar.urls')),
-
 )
+

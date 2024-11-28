@@ -1,7 +1,7 @@
 from django.urls import path
-from apps.categories.views import category,set_category
+from apps.categories.views import CategoryView,SetCategoryView
 
 urlpatterns = [
-    path('', category, name='category'),
-    path('set-category/<int:cat_id>/', set_category, name='set-category')
+    path('', CategoryView.as_view(), name='category'),
+    path('set-category/<int:cat_id>/', SetCategoryView.as_view(), name='set-category')
 ]

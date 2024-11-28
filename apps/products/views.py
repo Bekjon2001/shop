@@ -1,36 +1,36 @@
-from unicodedata import category
+from django.views import View
+
 
 from django.core.handlers.wsgi import WSGIRequest
 from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404, redirect
+
 
 from apps.comments.models import ProductComment
 from apps.features.models import Feature
 from apps.products.models import Product,ProductFeatures
 from apps.wishlist.models import Wishlist
-from apps.carts.models import Cart
 
 from django.core.paginator import Paginator
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render,redirect
 
+class ProductDetailView(View):
+    def get(self,request, pk):
+        product = get_object_or_404(Product, pk=pk)
+        comments = ProductComment.objects.filter(product_id=product.pk).order_by('-created_at')
 
-def product_detail(request, pk):
-    product = get_object_or_404(Product, pk=pk)
-    comments = ProductComment.objects.filter(product_id=product.pk).order_by('-created_at')
+        paginator = Paginator(comments, 3)
+        comment_page = request.GET.get('comment_page', 1)
+        comment_page_obj = paginator.get_page(comment_page)
+        product_features = ProductFeatures.objects.filter(product_id=pk)
 
-    paginator = Paginator(comments, 3)
-    comment_page = request.GET.get('comment_page', 1)
-    comment_page_obj = paginator.get_page(comment_page)
-    product_features = ProductFeatures.objects.filter(product_id=pk)
-
-    context = {
-        'product': product,
-        'comments': comments,
-        'comment_page_obj': comment_page_obj,
-        'product_features': product_features,
-        'page': 'detail',
-    }
-    return render(request=request, template_name='detail.html', context=context)
+        context = {
+            'product': product,
+            'comments': comments,
+            'comment_page_obj': comment_page_obj,
+            'product_features': product_features,
+            'page': 'detail',
+        }
+        return render(request=request, template_name='detail.html', context=context)
 
 
 def product_by_feature(request, pk):

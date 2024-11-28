@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.shortcuts import redirect
+from django.views import View
 
 
 from apps.coupons.models import Coupon, UsedCoupon
